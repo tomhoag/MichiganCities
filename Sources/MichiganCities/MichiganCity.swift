@@ -8,7 +8,7 @@
 import SwiftUI
 import MapKit
 
-public struct MichiganCity {
+public struct MichiganCity: Equatable, Hashable {
 
     public static func == (lhs: MichiganCity, rhs: MichiganCity) -> Bool {
         lhs.id == rhs.id
