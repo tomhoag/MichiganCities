@@ -8,22 +8,22 @@
 import SwiftUI
 import MapKit
 
-struct MichiganCity {
+public struct MichiganCity {
 
-    static func == (lhs: MichiganCity, rhs: MichiganCity) -> Bool {
+    public static func == (lhs: MichiganCity, rhs: MichiganCity) -> Bool {
         lhs.id == rhs.id
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
-    var id: Int
-    var name: String
-    var coordinate: CLLocationCoordinate2D
+    public var id: Int
+    public var name: String
+    public var coordinate: CLLocationCoordinate2D
 }
 
-enum MichiganCities: Int, CaseIterable{
+public enum MichiganCities: Int, CaseIterable{
 
     case adrian = 1
     case albion
@@ -81,11 +81,11 @@ enum MichiganCities: Int, CaseIterable{
     case wyandotte
     case ypsilanti
 
-    var id: Int {
+    public var id: Int {
         return self.rawValue
     }
 
-    var coordinate: CLLocationCoordinate2D {
+    public var coordinate: CLLocationCoordinate2D {
         switch self {
         case .adrian: return CLLocationCoordinate2D(latitude: 41.8975, longitude: -84.0372)
         case .albion: return CLLocationCoordinate2D(latitude: 42.2431, longitude: -84.7530)
@@ -145,7 +145,7 @@ enum MichiganCities: Int, CaseIterable{
         }
     }
 
-    var name: String {
+    public var name: String {
         switch self {
         case .adrian: return "Adrian"
         case .albion: return "Albion"
@@ -205,11 +205,11 @@ enum MichiganCities: Int, CaseIterable{
         }
     }
 
-    var asMichiganCity: MichiganCity {
+    public var asMichiganCity: MichiganCity {
         return MichiganCity(id: self.id, name: self.name, coordinate: self.coordinate)
     }
 
-    static func random(count: Int) -> [MichiganCity]? {
+    public static func random(count: Int) -> [MichiganCity]? {
         guard count > 0 else { return nil }
 
         guard count < MichiganCities.allCases.count else {
