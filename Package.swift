@@ -13,16 +13,11 @@ let package = Package(
             targets: ["MichiganCities"]
         )
     ],
-    dependencies: [
-        .package(url: "https://github.com/tomhoag/SwiftLintPlugin.git", branch: "main")
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "MichiganCities",
-            dependencies: [],
-            plugins: [
-                .plugin(name: "SwiftLintPlugin", package: "SwiftLintPlugin")
-            ]
+            dependencies: []
         )
     ]
 )
