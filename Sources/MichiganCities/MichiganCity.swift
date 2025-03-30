@@ -1,30 +1,52 @@
+
+//===----------------------------------------------------------------------===//
 //
-//  MichiganCity.swift
-//  MapAnimations
+// Copyright (c) 2025 Tom Hoag and the MichiganCities project authors
+// Licensed under MIT License
 //
-//  Created by Tom Hoag on 3/24/25.
+// See LICENSE for license information
 //
+// SPDX-License-Identifier: MIT
+//
+//===----------------------------------------------------------------------===//
 
 import SwiftUI
 import MapKit
 
-public struct MichiganCity: Equatable, Hashable {
+/**
+ A structure representing a city in Michigan.
 
+ This structure encapsulates the basic information about a Michigan city including
+ its identifier, name, and geographic coordinates.
+ */
+public struct MichiganCity: Equatable, Hashable {
+    // MARK: - Equatable Implementation
     public static func == (lhs: MichiganCity, rhs: MichiganCity) -> Bool {
         lhs.id == rhs.id
     }
 
+    // MARK: - Hashable Implementation
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 
+    // MARK: - Properties
+    /// Unique identifier for the city
     public var id: Int
+    /// Name of the city
     public var name: String
+    /// Geographic coordinates of the city
     public var coordinate: CLLocationCoordinate2D
 }
 
-public enum MichiganCities: Int, CaseIterable{
+/**
+ An enumeration of Michigan cities with their geographic coordinates and names.
 
+ This enum provides a list of Michigan cities along with their
+ associated data and utility functions for mapping and random selection.
+ */
+public enum MichiganCities: Int, CaseIterable {
+    // MARK: - City Cases
     case adrian = 1
     case albion
     case alpena
@@ -81,10 +103,21 @@ public enum MichiganCities: Int, CaseIterable{
     case wyandotte
     case ypsilanti
 
+    // MARK: - Properties
+    /**
+     Returns the unique identifier for the city.
+
+     This ID corresponds to the raw value of the enum case.
+     */
     public var id: Int {
         return self.rawValue
     }
 
+    /**
+     Returns the geographic coordinates for the city.
+
+     Provides the latitude and longitude for precise location mapping.
+     */
     public var coordinate: CLLocationCoordinate2D {
         switch self {
         case .adrian: return CLLocationCoordinate2D(latitude: 41.8975, longitude: -84.0372)
@@ -145,6 +178,11 @@ public enum MichiganCities: Int, CaseIterable{
         }
     }
 
+    /**
+     Returns the formatted name of the city.
+
+     Provides proper capitalization and spacing for city names.
+     */
     public var name: String {
         switch self {
         case .adrian: return "Adrian"
@@ -205,10 +243,23 @@ public enum MichiganCities: Int, CaseIterable{
         }
     }
 
+    /**
+     Converts the enum case to a MichiganCity structure.
+
+     This computed property provides an easy way to convert between the enum
+     and struct representations of a city.
+     */
     public var asMichiganCity: MichiganCity {
         return MichiganCity(id: self.id, name: self.name, coordinate: self.coordinate)
     }
 
+    // MARK: - Static Methods
+    /**
+     Returns a random array of Michigan cities.
+
+     - Parameter count: The number of random cities to return
+     - Returns: An optional array of MichiganCity structures. Returns nil if count is 0 or negative
+     */
     public static func random(count: Int) -> [MichiganCity]? {
         guard count > 0 else { return nil }
 
@@ -217,5 +268,27 @@ public enum MichiganCities: Int, CaseIterable{
         }
 
         return Array(MichiganCities.allCases.shuffled().prefix(count)).map { $0.asMichiganCity }
+    }
+
+    /**
+     Returns a map region that encompasses both Michigan peninsulas.
+
+     This region is preconfigured with center coordinates and span
+     to show both peninsulas with padding.
+     */
+    public static var mapRegion: MKCoordinateRegion {
+        // Center point between both peninsulas
+        let center = CLLocationCoordinate2D(
+            latitude: 43.802819,
+            longitude: -86.112938
+        )
+
+        // Span to show both peninsulas with some padding
+        let span = MKCoordinateSpan(
+            latitudeDelta: 6.0,
+            longitudeDelta: 8.0
+        )
+
+        return MKCoordinateRegion(center: center, span: span)
     }
 }
