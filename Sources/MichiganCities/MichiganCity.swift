@@ -1,4 +1,3 @@
-
 //===----------------------------------------------------------------------===//
 //
 // Copyright (c) 2025 Tom Hoag and the MichiganCities project authors
@@ -10,8 +9,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 /**
  A structure representing a city in Michigan.
@@ -19,18 +18,21 @@ import MapKit
  This structure encapsulates the basic information about a Michigan city including
  its identifier, name, and geographic coordinates.
  */
-public struct MichiganCity: Equatable, Hashable {
+public struct MichiganCity: Equatable, Hashable, Sendable {
     // MARK: - Equatable Implementation
+
     public static func == (lhs: MichiganCity, rhs: MichiganCity) -> Bool {
         lhs.id == rhs.id
     }
 
     // MARK: - Hashable Implementation
+
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(self.id)
     }
 
     // MARK: - Properties
+
     /// Unique identifier for the city
     public var id: Int
     /// Name of the city
@@ -47,6 +49,7 @@ public struct MichiganCity: Equatable, Hashable {
  */
 public enum MichiganCities: Int, CaseIterable {
     // MARK: - City Cases
+
     case adrian = 1
     case albion
     case alpena
@@ -104,6 +107,7 @@ public enum MichiganCities: Int, CaseIterable {
     case ypsilanti
 
     // MARK: - Properties
+
     /**
      Returns the unique identifier for the city.
 
@@ -137,7 +141,7 @@ public enum MichiganCities: Int, CaseIterable {
         case .dearborn: return CLLocationCoordinate2D(latitude: 42.3223, longitude: -83.1763)
         case .detroit: return CLLocationCoordinate2D(latitude: 42.3314, longitude: -83.0458)
         case .eastlansing: return CLLocationCoordinate2D(latitude: 42.7368, longitude: -84.4837)
-        case .eastpointe: return CLLocationCoordinate2D(latitude:42.466595, longitude: -82.959213)
+        case .eastpointe: return CLLocationCoordinate2D(latitude: 42.466595, longitude: -82.959213)
         case .ecorse: return CLLocationCoordinate2D(latitude: 42.2543, longitude: -83.1499)
         case .escanaba: return CLLocationCoordinate2D(latitude: 45.7453, longitude: -87.0646)
         case .fenton: return CLLocationCoordinate2D(latitude: 42.79781, longitude: -83.70495)
@@ -254,6 +258,7 @@ public enum MichiganCities: Int, CaseIterable {
     }
 
     // MARK: - Static Methods
+
     /**
      Returns a random array of Michigan cities.
 
